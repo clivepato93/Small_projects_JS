@@ -75,7 +75,7 @@ const displayMovements = function (movements,sort=0) {
     <div class="movements">
       <div class="movements__row">
       <div class="movements__type movements__type--${type}">${i+1} ${type}</div>
-      <div class="movements__value">${mov}€</div>
+      <div class="movements__value">${mov.toFixed(2)}€</div>
     </div>
     `;
     containerMovements.insertAdjacentHTML('afterbegin',html)
@@ -88,7 +88,7 @@ const user='Steven Thomas Williams'; //stw
 
 const calculateBalance = function(acc){
   acc.balance = acc.movements.reduce((accum,cur) => accum+cur,0)
-  labelBalance.textContent=`${acc.balance}€`
+  labelBalance.textContent=`${acc.balance.toFixed(2)}€`
   
 }
 
@@ -97,19 +97,19 @@ const calcDisplaySummary = function (acc) {
   const incomes=  acc.movements
   .filter(mov => mov >  0)
   .reduce((acc,curr) => acc+curr,0)
-  labelSumIn.textContent = `${incomes}€`
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`
  
   const outgoings=  acc.movements
   .filter(mov => mov <  0)
   .reduce((acc,curr) => acc+curr,0)
-  labelSumOut.textContent = `${Math.abs(outgoings)}€`
+  labelSumOut.textContent = `${Math.abs(outgoings).toFixed(2)}€`
   
   const interest =  acc.movements
   .filter(mov => mov >  0)
   .map(deposit => deposit*acc.interestRate/100)
   .filter(interest => interest>=1)
   .reduce((acc,interest) => acc+interest,0)
-  labelSumInterest.textContent= `${interest}€`
+  labelSumInterest.textContent= `${interest.toFixed(2)}€`
 }
 
 
