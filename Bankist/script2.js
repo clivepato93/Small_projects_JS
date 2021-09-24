@@ -4,7 +4,6 @@
 /////////////////////////////////////////////////
 // BANKIST APP
 
-// Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
@@ -166,7 +165,6 @@ const displayMovements = function (acc,sort=0) {
 };
 
 
-
 const user='Steven Thomas Williams'; //stw
 
 
@@ -199,6 +197,8 @@ const calcDisplaySummary = function (acc) {
 
 
 const createUsernames = function (accs) {
+  // mine
+
   accs.forEach(function (acc) {
     acc.username = acc.owner
     .toLowerCase()
@@ -206,21 +206,45 @@ const createUsernames = function (accs) {
     map(name=> name[0])
     .join('')
   });
+
+  /* instructor solution 
+  const username =user
+  .toLowerCase()
+  .split(' ')
+  .map(function (name) {
+  return name[0]
+  }).join('')
+
+  // mine
+
+  const username = user
+  .toLowerCase()
+  .split(' ').
+  map(name=> name[0])
+  .join('')
+console.log(username)
+*/
 }
 
 createUsernames(accounts)
 
 const updateUI = function(acc) {
   // Display movements
-  displayMovements(acc.movements)
+  displayMovements(acc);
   // Display balance 
-  calculateBalance(acc)
+  calculateBalance(acc);
   // Display summary
-  calcDisplaySummary(acc)
+  calcDisplaySummary(acc);
 }
 
 // Event Handler
 let currentAccount,timer;
+
+// Experimenting API
+const locale = navigator.language;
+// const now  = new Date();
+// labelDate.textContent= new Intl.DateTimeFormat('en-US').format(now)
+
 
 const startLogOutTimer = function () {
   const tick = function () {
@@ -370,22 +394,4 @@ btnSort.addEventListener('click',function (e) {
     displayMovements(currentAccount,sorted)
   }
   
-})
-
-const overallMovements = accounts
-.map(acc => acc.movements).flat()
-.reduce((total,current)=> total+current,0)
-
-
-const overallMovements2 = accounts
-.flatMap(acc => acc.movements)
-.reduce((total,current)=> total+current,0)
-
-
-labelBalance.addEventListener('click',function (e) {
-  e.preventDefault();
-  const movementsUI = 
-  Array.from( document.querySelectorAll('.movements__value'))
-  .map( ele => Number( ele.textContent.replace('€','')));
-  console.log(movementsUI)
 })
